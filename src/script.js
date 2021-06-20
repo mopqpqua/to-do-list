@@ -1,3 +1,6 @@
+import storage from './storage.js';
+import './style.css';
+
 'use strict';
 
 const newTodo = document.querySelector('.newTodo');

@@ -1,14 +1,13 @@
-'use strict';
-
-const storage = {
+export default Storage = {
 	TODO_KEY: 'todo',
 	box: {}, // Reflection of the current tasks.
+  todoList: document.querySelector('.todoList'),
 
   // Updates the box and localStorage
   // every time todo list changes.
   save() {
   	this.box = {};
-  	this.update(todoList).forEach((task, index) => {
+  	this.update(this.todoList).forEach((task, index) => {
     	this.box[index + 1] = {};
     	this.box[index + 1].text = task.text;
       this.box[index + 1].state = task.state;
@@ -25,12 +24,22 @@ const storage = {
     this.box = JSON.parse( window.localStorage.getItem(key) );
 
     for ( let task in this.box ) {
-    	todoList.append(makeTodoLi());
-      todoList.lastChild.append( makeLabel(this.box[task].text) );
-      todoList.lastChild.prepend( makeInput('checkbox', this.box[task].state) );
+    	this.todoList.append(document.createElement('li'));
 
-      todoList.lastChild.firstChild.checked ?
-      todoList.lastChild.classList.add('done') :
+      let label = document.createElement('label');
+      label.className = '';
+      label.textContent = this.box[task].text;
+
+      this.todoList.lastChild.append(label);
+
+      let input = document.createElement('input');
+      input.type = 'checkbox';
+      input.checked = this.box[task].state;
+
+      this.todoList.lastChild.prepend(input);
+
+      this.todoList.lastChild.firstChild.checked ?
+      this.todoList.lastChild.classList.add('done') :
       null;
     }
   },
