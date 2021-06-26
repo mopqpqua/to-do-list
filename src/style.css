@@ -162,6 +162,7 @@ footer {
   width: 50%;
   float: right;
   display: flex;
+  justify-content: flex-end;
 }
 
 .filters button {
