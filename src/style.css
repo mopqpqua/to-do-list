@@ -4,8 +4,8 @@ html, body {
 }
 
 #todos {
-  width: 50%;
-  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
 }
 
 #todos header, section, footer {
@@ -18,10 +18,6 @@ header h1 {
   text-align: center;
   font-family: 'Roboto Slab', serif, 'Times New Roman';
   font-size: 7em;
-
-  /* makes h1 shrink */
-  overflow: hidden;
-  text-overflow: ellipsis;
 
   margin: 0;
 }
@@ -38,6 +34,7 @@ header h1 {
 
   border: none;
   box-shadow: 3px 3px 4px #C6C6C6;
+  background-color: #A9DFBF38;
 }
 
 .newTodo:focus {
@@ -48,6 +45,7 @@ header h1 {
 .main {
   font-family: Jost, sans-serif, Arial;
   font-size: 1.5em;
+  margin-top: 20px;
 }
 
 .todoList {
@@ -163,6 +161,7 @@ footer {
 .filters {
   width: 50%;
   float: right;
+  display: flex;
 }
 
 .filters button {
@@ -172,8 +171,6 @@ footer {
   border: none;
 
   height: 40px;
-  min-width: 45px;
-  float: right;
 
   border-bottom: 1px solid #C7C7C7;
   border-right: 1px solid #C7C7C7;
