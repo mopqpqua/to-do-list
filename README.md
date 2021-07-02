@@ -1,4 +1,6 @@
 # ToDo List
 
-This is the ToDo List app made by me!
+Clearly simple to-do list. Enjoy your day tasks!
 Design inspired by ToDo MVC.
+
+Demo: https://to-do-beast.glitch.me/
