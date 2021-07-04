@@ -1,6 +1,54 @@
+<template>
+  <div id="todos">
+    <header>
+      <h1>todos</h1>
+      <input
+        placeholder="What needs to be done?"
+        autofocus
+        autocomplete="off"
+        class="newTodo"
+        @keyup.enter="addTask"
+      />
+    </header>
+
+    <footer>
+      <section class="filters">
+        <button value="completed">Completed</button>
+        <button value="unfinished">Unfinished</button>
+        <button value="all">All</button>
+      </section>
+    </footer>
+
+    <section class="main">
+      <ul class="todoList">
+        <Task
+          v-for="task in tasks"
+          :key="task.length"></Task>
+      </ul>
+    </section>
+
+    <article class="info">
+      <p>Double-click on text to edit</p>
+      <p>Written by Slava Rykov</p>
+    </article>
+  </div>
+</template>
+
+<style>
+@import 'fonts.css';
+
 html, body {
   margin: 0;
   padding: 0;
+}
+
+.done {
+  color: #A3A3A3;
+  text-decoration: line-through solid #444444;
+}
+
+.hide {
+  display: none;
 }
 
 #todos {
@@ -16,8 +64,9 @@ html, body {
 /* HEADER */
 header h1 {
   text-align: center;
-  font-family: 'Roboto Slab', serif, 'Times New Roman';
+  font-family: Roboto, serif, 'Times New Roman';
   font-size: 7em;
+  font-weight: 300;
 
   margin: 0;
 }
@@ -198,3 +247,29 @@ footer {
   font-size: 0.8em;
   font-family: Jost, sans-serif, Arial;
 }
+
+</style>
+
+<script>
+import Task from '@components/Task';
+
+export default {
+  name: 'Todos',
+
+  components: {
+    Task
+  },
+
+  data() {
+    return {
+      tasks: [],
+    };
+  },
+
+  methods: {
+    addTask() {
+      this.tasks.push({});
+    },
+  },
+}
+</script>

@@ -1,0 +1,10 @@
+@font-face {
+  font-family: Jost;
+  src: url(./assets/Jost.ttf),
+        url(./assets/RobotoSlab.ttf);
+}
+
+@font-face {
+  font-family: Roboto;
+  src: url(./assets/RobotoSlab.ttf);
+}
