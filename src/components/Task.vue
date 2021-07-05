@@ -1,9 +1,12 @@
 <template>
-  <li>
-    <input type="checkbox"/>
+  <li
+    @mouseenter="showDeleteButton = !showDeleteButton"
+    @mouseleave="showDeleteButton = !showDeleteButton">
+    <input type="checkbox" v-model="task.done"/>
     <label
       v-show="!editTask"
-      @dblclick="edit">{{ task.text }}</label>
+      @dblclick="edit"
+      :class="{ done: task.done }">{{ task.text }}</label>
     <input
       type="text"
       ref="editor"
@@ -12,7 +15,7 @@
       @keyup.esc="cancelEdit"
       @keyup.enter="applyEdit"
       @blur="applyEdit"/>
-    <button @click="deleteTask">delete</button>
+    <button @click="deleteTask" v-if="showDeleteButton">delete</button>
   </li>
 </template>
 
@@ -27,6 +30,8 @@ export default {
   data() {
     return {
       editTask: false,
+      showDeleteButton: false,
+
       editedTaskText: this.task.text,
     }
   },

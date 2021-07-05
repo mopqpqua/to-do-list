@@ -278,6 +278,7 @@ export default {
     addTask() {
       this.tasks.push({
         text: this.newTask,
+        done: false,
       });
 
       this.newTask = '';
