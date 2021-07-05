@@ -6,6 +6,7 @@
       @dblclick="edit">{{ task.text }}</label>
     <input
       type="text"
+      ref="editor"
       v-show="editTask"
       v-model.lazy="editedTaskText"
       @keyup.esc="cancelEdit"
@@ -33,6 +34,11 @@ export default {
   methods: {
     edit() {
       this.editTask = true;
+      // Wait until the
+      // input is rerendered
+      this.$nextTick(() => {
+        this.$refs.editor.focus();
+      });
     },
 
     cancelEdit() {
@@ -41,8 +47,8 @@ export default {
     },
 
     applyEdit() {
-      this.task.text = this.editedTaskText;
       this.editTask = false;
+      this.task.text = this.editedTaskText;
     },
 
     deleteTask() {
