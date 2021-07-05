@@ -8,6 +8,7 @@
         autocomplete="off"
         class="newTodo"
         @keyup.enter="addTask"
+        v-model.lazy="newTask"
       />
     </header>
 
@@ -22,8 +23,11 @@
     <section class="main">
       <ul class="todoList">
         <Task
-          v-for="task in tasks"
-          :key="task.length"></Task>
+          v-for="(task, index) in tasks"
+          :key="index"
+          :task="task"
+          :tasks="tasks"
+          :index="index"></Task>
       </ul>
     </section>
 
@@ -52,6 +56,9 @@ html, body {
 }
 
 #todos {
+  max-width: 1000px;
+  margin: 0 auto;
+
   display: flex;
   flex-direction: column;
 }
@@ -263,12 +270,17 @@ export default {
   data() {
     return {
       tasks: [],
+      newTask: '',
     };
   },
 
   methods: {
     addTask() {
-      this.tasks.push({});
+      this.tasks.push({
+        text: this.newTask,
+      });
+
+      this.newTask = '';
     },
   },
 }
