@@ -1,5 +1,6 @@
 <template>
   <li
+    :class="{ hide: task.hidden }"
     @mouseenter="showDeleteButton = !showDeleteButton"
     @mouseleave="showDeleteButton = !showDeleteButton">
     <input type="checkbox" v-model="task.done"/>

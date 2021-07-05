@@ -14,9 +14,9 @@
 
     <footer>
       <section class="filters">
-        <button value="completed">Completed</button>
-        <button value="unfinished">Unfinished</button>
-        <button value="all">All</button>
+        <button @click="filter('completed')">Completed</button>
+        <button @click="filter('unfinished')">Unfinished</button>
+        <button @click="filter('all')">All</button>
       </section>
     </footer>
 
@@ -279,10 +279,43 @@ export default {
       this.tasks.push({
         text: this.newTask,
         done: false,
+        hidden: false,
       });
 
       this.newTask = '';
     },
+
+    filter(value) {
+      switch (value) {
+        case 'completed': {
+          this.tasks.forEach((task, index) => {
+            if (!task.done) this.tasks[index].hidden = true;
+          });
+
+          break;
+        }
+
+        case 'unfinished': {
+          this.tasks.forEach((task, index) => {
+            if (task.done) this.tasks[index].hidden = true;
+          });
+
+          this.tasks.forEach((task, index) => {
+            if (!task.done) this.tasks[index].hidden = false;
+          });
+
+          break;
+        }
+
+        case 'all': {
+          this.tasks.forEach((task, index) => {
+            this.tasks[index].hidden = false;
+          });
+
+          break;
+        }
+      }
+    }
   },
 }
 </script>
