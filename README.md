@@ -1,4 +1,11 @@
 # ToDo List
 
-This is the ToDo List app made by me!
+This is the To-Do-List app made by me!
 Design inspired by ToDo MVC.
+
+### Features:
+You can edit your task by double click on text, </br>
+You can use filters for better task management, </br>
+Also you can delete tasks.
+
+Everything will be saved in local storage.

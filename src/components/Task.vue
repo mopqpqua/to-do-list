@@ -3,7 +3,7 @@
     :class="{ hide: task.hidden }"
     @mouseenter="showDeleteButton = !showDeleteButton"
     @mouseleave="showDeleteButton = !showDeleteButton">
-    <input type="checkbox" v-model="task.done"/>
+    <input type="checkbox" v-model="task.done" @click="$parent.save()"/>
     <label
       v-show="!editTask"
       @dblclick="edit"
@@ -55,10 +55,16 @@ export default {
     applyEdit() {
       this.editTask = false;
       this.task.text = this.editedTaskText;
+
+      // Local storage saving
+      this.$parent.save()
     },
 
     deleteTask() {
       this.tasks.splice(this.taskIndex, 1);
+
+      // Local storage saving
+      this.$parent.save()
     },
   },
 }

@@ -269,12 +269,15 @@ export default {
 
   data() {
     return {
-      tasks: [],
+      STORAGE_KEY: 'TODO_LIST',
+
+      tasks: this.fetch(),
       newTask: '',
     };
   },
 
   methods: {
+    // Task adding
     addTask() {
       this.tasks.push({
         text: this.newTask,
@@ -283,8 +286,11 @@ export default {
       });
 
       this.newTask = '';
+
+      this.save();
     },
 
+    // Filters
     filter(value) {
       switch (value) {
         case 'completed': {
@@ -315,7 +321,24 @@ export default {
           break;
         }
       }
-    }
+    },
+
+    // Local storage handling
+    // using JSON
+    save() {
+      let jsonTasks = JSON.stringify(this.tasks);
+      window.localStorage.setItem(this.STORAGE_KEY, jsonTasks);
+    },
+
+    fetch() {
+      let tasks = JSON.parse(
+        window.localStorage.getItem(this.STORAGE_KEY)
+      );
+
+      console.log(window.localStorage.getItem(this.STORAGE_KEY));
+
+      return tasks || [];
+    },
   },
 }
 </script>
