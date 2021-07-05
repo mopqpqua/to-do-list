@@ -2,12 +2,12 @@
   <li>
     <input type="checkbox"/>
     <label
-      v-if="!editTask"
+      v-show="!editTask"
       @dblclick="edit">{{ task.text }}</label>
     <input
       type="text"
-      v-if="editTask"
-      v-model.lazy="editedTask"
+      v-show="editTask"
+      v-model.lazy="editedTaskText"
       @keyup.esc="cancelEdit"
       @keyup.enter="applyEdit"
       @blur="applyEdit"/>
@@ -26,7 +26,7 @@ export default {
   data() {
     return {
       editTask: false,
-      editedTask: this.task.text,
+      editedTaskText: this.task.text,
     }
   },
 
@@ -37,11 +37,11 @@ export default {
 
     cancelEdit() {
       this.editTask = false;
-      this.editedTask = '';
+      this.editedTaskText = this.task.text;
     },
 
     applyEdit() {
-      this.task.text = this.editedTask;
+      this.task.text = this.editedTaskText;
       this.editTask = false;
     },
 

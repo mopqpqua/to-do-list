@@ -27,7 +27,7 @@
           :key="index"
           :task="task"
           :tasks="tasks"
-          :index="index"></Task>
+          :task-index="index"></Task>
       </ul>
     </section>
 
