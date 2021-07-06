@@ -92,7 +92,6 @@ header h1 {
 
   border: none;
   box-shadow: 3px 3px 4px #C6C6C6;
-  background-color: #A9DFBF38;
 }
 
 .newTodo:focus {
