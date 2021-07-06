@@ -9,3 +9,5 @@ You can use filters for better task management, </br>
 Also you can delete tasks.
 
 Everything will be saved in local storage.
+
+Demo: https://to-do-beast.glitch.me/
