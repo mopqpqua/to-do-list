@@ -1,9 +1,66 @@
+<template>
+  <div id="todos">
+    <header>
+      <h1>todos</h1>
+      <input
+        placeholder="What needs to be done?"
+        autofocus
+        autocomplete="off"
+        class="newTodo"
+        @keyup.enter="addTask"
+        v-model.lazy="newTask"
+      />
+    </header>
+
+    <footer>
+      <section class="filters">
+        <button @click="filter('completed')">Completed</button>
+        <button @click="filter('unfinished')">Unfinished</button>
+        <button @click="filter('all')">All</button>
+      </section>
+    </footer>
+
+    <section class="main">
+      <ul class="todoList">
+        <Task
+          v-for="(task, index) in tasks"
+          :key="index"
+          :task="task"
+          :tasks="tasks"
+          :task-index="index"></Task>
+      </ul>
+    </section>
+
+    <article class="info">
+      <p>Double-click on text to edit</p>
+      <p>Written by Slava Rykov</p>
+    </article>
+  </div>
+</template>
+
+<style>
+@import 'fonts.css';
+
 html, body {
   margin: 0;
   padding: 0;
+
+  background-color: #F7F7F7;
+}
+
+.done {
+  color: #A3A3A3;
+  text-decoration: line-through solid #444444;
+}
+
+.hide {
+  display: none;
 }
 
 #todos {
+  max-width: 1000px;
+  margin: 0 auto;
+
   display: flex;
   flex-direction: column;
 }
@@ -16,8 +73,9 @@ html, body {
 /* HEADER */
 header h1 {
   text-align: center;
-  font-family: 'Roboto Slab', serif, 'Times New Roman';
+  font-family: Roboto, serif, 'Times New Roman';
   font-size: 7em;
+  font-weight: 300;
 
   margin: 0;
 }
@@ -34,7 +92,6 @@ header h1 {
 
   border: none;
   box-shadow: 3px 3px 4px #C6C6C6;
-  background-color: #A9DFBF38;
 }
 
 .newTodo:focus {
@@ -198,3 +255,93 @@ footer {
   font-size: 0.8em;
   font-family: Jost, sans-serif, Arial;
 }
+
+</style>
+
+<script>
+import Task from '@components/Task';
+
+export default {
+  name: 'Todos',
+
+  components: {
+    Task
+  },
+
+  data() {
+    return {
+      STORAGE_KEY: 'TODO_LIST',
+
+      tasks: this.fetch(),
+      newTask: '',
+    };
+  },
+
+  beforeCreate() {
+    this.STORAGE_KEY = 'TODO_LIST';
+  },
+
+  methods: {
+    // Task adding
+    addTask() {
+      this.tasks.push({
+        text: this.newTask,
+        done: false,
+        hidden: false,
+      });
+
+      this.newTask = '';
+
+      this.save();
+    },
+
+    // Filters
+    filter(value) {
+      switch (value) {
+        case 'completed': {
+          this.tasks.forEach((task, index) => {
+            if (!task.done) this.tasks[index].hidden = true;
+          });
+
+          break;
+        }
+
+        case 'unfinished': {
+          this.tasks.forEach((task, index) => {
+            if (task.done) this.tasks[index].hidden = true;
+          });
+
+          this.tasks.forEach((task, index) => {
+            if (!task.done) this.tasks[index].hidden = false;
+          });
+
+          break;
+        }
+
+        case 'all': {
+          this.tasks.forEach((task, index) => {
+            this.tasks[index].hidden = false;
+          });
+
+          break;
+        }
+      }
+    },
+
+    // Local storage handling
+    // using JSON
+    save() {
+      let jsonTasks = JSON.stringify(this.tasks);
+      window.localStorage.setItem(this.STORAGE_KEY, jsonTasks);
+    },
+
+    fetch() {
+      let tasks = JSON.parse(
+        window.localStorage.getItem(this.STORAGE_KEY) || "[]"
+      );
+
+      return tasks;
+    },
+  },
+}
+</script>
