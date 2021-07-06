@@ -276,6 +276,10 @@ export default {
     };
   },
 
+  beforeCreate() {
+    this.STORAGE_KEY = 'TODO_LIST';
+  },
+
   methods: {
     // Task adding
     addTask() {
@@ -332,12 +336,10 @@ export default {
 
     fetch() {
       let tasks = JSON.parse(
-        window.localStorage.getItem(this.STORAGE_KEY)
+        window.localStorage.getItem(this.STORAGE_KEY) || "[]"
       );
 
-      console.log(window.localStorage.getItem(this.STORAGE_KEY));
-
-      return tasks || [];
+      return tasks;
     },
   },
 }
