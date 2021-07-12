@@ -6,8 +6,9 @@ Design inspired by ToDo MVC.
 ### Installation
 
 1) clone repo
-2) run npm install
-3) open ```dist/index.html```
+2) run ```npm install```
+3) run ```npm run build```
+4) open ```dist/index.html```
 
 ### Features:
 You can edit your task by double click on text, </br>
