@@ -3,7 +3,11 @@
     :class="{ hide: task.hidden }"
     @mouseenter="showDeleteButton = !showDeleteButton"
     @mouseleave="showDeleteButton = !showDeleteButton">
-    <input type="checkbox" v-model="task.done" @change="$parent.save"/>
+    <input
+      type="checkbox"
+      v-model="task.done"
+      @change="filterUpdate"
+      @mouseup="$parent.save"/>
     <label
       v-show="!editTask"
       @dblclick="edit"
@@ -32,12 +36,16 @@ export default {
     return {
       editTask: false,
       showDeleteButton: false,
-
-      // editedTaskText: this.task.text,
     }
   },
 
   methods: {
+    filterUpdate() {
+      if (this.task.done && this.$parent.filterValue == 'unfinished') this.$parent.filter('unfinished');
+
+      if (!this.task.done && this.$parent.filterValue == 'completed') this.$parent.filter('completed');
+    },
+
     edit() {
       this.editTask = true;
       // Wait until the

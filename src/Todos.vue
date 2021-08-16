@@ -274,6 +274,7 @@ export default {
 
       tasks: this.fetch(),
       newTask: '',
+      filterValue: 'all',
     };
   },
 
@@ -297,30 +298,30 @@ export default {
 
     // Filters
     filter(value) {
+      this.filterValue = value;
+
       switch (value) {
         case 'completed': {
-          this.tasks.forEach((task, index) => {
-            if (!task.done) this.tasks[index].hidden = true;
+          this.tasks.forEach(task => {
+            if (!task.done) task.hidden = true;
+            else task.hidden = false;
           });
 
           break;
         }
 
         case 'unfinished': {
-          this.tasks.forEach((task, index) => {
-            if (task.done) this.tasks[index].hidden = true;
-          });
-
-          this.tasks.forEach((task, index) => {
-            if (!task.done) this.tasks[index].hidden = false;
+          this.tasks.forEach(task => {
+            if (task.done) task.hidden = true;
+            else task.hidden = false;
           });
 
           break;
         }
 
         case 'all': {
-          this.tasks.forEach((task, index) => {
-            this.tasks[index].hidden = false;
+          this.tasks.forEach(task => {
+            task.hidden = false;
           });
 
           break;
