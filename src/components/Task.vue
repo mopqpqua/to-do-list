@@ -12,11 +12,11 @@
       type="text"
       ref="editor"
       v-show="editTask"
-      v-model.lazy="editedTaskText"
+      v-model="editedTaskText"
       @keyup.esc="cancelEdit"
       @keyup.enter="applyEdit"
       @blur="applyEdit"/>
-    <button @click="deleteTask" v-if="showDeleteButton">delete</button>
+    <button @click="deleteTask" v-show="showDeleteButton">delete</button>
   </li>
 </template>
 
@@ -33,7 +33,7 @@ export default {
       editTask: false,
       showDeleteButton: false,
 
-      editedTaskText: this.task.text,
+      // editedTaskText: this.task.text,
     }
   },
 
@@ -65,6 +65,12 @@ export default {
 
       // Local storage saving
       this.$parent.save();
+    },
+  },
+
+  computed: {
+    editedTaskText() {
+      return this.task.text;
     },
   },
 }
