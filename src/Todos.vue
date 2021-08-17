@@ -282,6 +282,14 @@ export default {
     this.STORAGE_KEY = 'TODO_LIST';
   },
 
+  mounted() {
+    this.filter('all');
+  },
+
+  updated() {
+    this.filter(this.filterValue);
+  },
+
   methods: {
     // Task adding
     addTask() {

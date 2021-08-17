@@ -1,13 +1,12 @@
 <template>
   <li
     :class="{ hide: task.hidden }"
-    @mouseenter="showDeleteButton = !showDeleteButton"
-    @mouseleave="showDeleteButton = !showDeleteButton">
+    @mouseenter.self="deleteButton = !deleteButton"
+    @mouseleave.self="deleteButton = !deleteButton">
     <input
       type="checkbox"
       v-model="task.done"
-      @change="filterUpdate"
-      @mouseup="$parent.save"/>
+      @change="tasksUpdate"/>
     <label
       v-show="!editTask"
       @dblclick="edit"
@@ -20,7 +19,7 @@
       @keyup.esc="cancelEdit"
       @keyup.enter="applyEdit"
       @blur="applyEdit"/>
-    <button @click="deleteTask" v-show="showDeleteButton">delete</button>
+    <button @click="deleteTask" v-show="deleteButton">delete</button>
   </li>
 </template>
 
@@ -35,18 +34,22 @@ export default {
   data() {
     return {
       editTask: false,
-      showDeleteButton: false,
+      editedTaskText: this.task.text,
+      deleteButton: false,
     }
   },
 
   methods: {
-    filterUpdate() {
+    tasksUpdate() {
       if (this.task.done && this.$parent.filterValue == 'unfinished') this.$parent.filter('unfinished');
 
       if (!this.task.done && this.$parent.filterValue == 'completed') this.$parent.filter('completed');
+
+      this.$parent.save();
     },
 
     edit() {
+      this.editedTaskText = this.task.text;
       this.editTask = true;
       // Wait until the
       // input is rerendered
@@ -73,12 +76,6 @@ export default {
 
       // Local storage saving
       this.$parent.save();
-    },
-  },
-
-  computed: {
-    editedTaskText() {
-      return this.task.text;
     },
   },
 }
